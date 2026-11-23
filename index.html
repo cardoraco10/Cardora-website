@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARDORA | Cards for Every Moment</title>
+<style>
+:root{--cream:#f8efe4;--ivory:#fffaf4;--champagne:#e8cfad;--gold:#b98543;--brown:#4a2b17;--ink:#382719;--muted:#816b58}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ivory);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+header{position:sticky;top:0;z-index:10;background:rgba(255,250,244,.94);backdrop-filter:blur(10px);border-bottom:1px solid #ead9c5}
+.nav{max-width:1160px;margin:auto;padding:15px 24px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{font-size:27px;letter-spacing:.17em;color:var(--brown);text-decoration:none}.brand small{display:block;font-size:9px;letter-spacing:.34em;text-align:center;margin-top:4px}
+nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}nav a{color:var(--brown);text-decoration:none;font-size:14px}
+.btn{display:inline-block;border:1px solid var(--gold);background:var(--brown);color:#fff8ee;padding:13px 22px;border-radius:30px;text-decoration:none;font:14px Arial,sans-serif;letter-spacing:.04em;cursor:pointer}
+.btn.light{background:transparent;color:var(--brown)}.hero{background:radial-gradient(ellipse at 50% 0%,#fff 0%,#f8ebdc 48%,#eed9c1 100%);padding:76px 22px 64px;text-align:center;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"✦";position:absolute;color:#c18b48;font-size:48px;top:45px}.hero:before{left:8%}.hero:after{right:8%}
+.eyebrow{letter-spacing:.32em;text-transform:uppercase;font:11px Arial,sans-serif;color:var(--muted)}
+h1{font-size:clamp(48px,8vw,86px);font-weight:400;letter-spacing:.14em;margin:14px 0 8px;color:var(--brown)}
+.tagline{font-size:17px;letter-spacing:.28em;margin:0 0 25px}.hero p{max-width:590px;margin:0 auto 28px;line-height:1.8;color:#6e5541}
+section{max-width:1160px;margin:auto;padding:72px 24px}.section-head{text-align:center;margin-bottom:34px}.section-head h2{font-size:38px;font-weight:400;margin:9px 0;color:var(--brown)}.section-head p{color:var(--muted);line-height:1.7}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.sample{background:#fff;border:1px solid #ead8c2;padding:12px;box-shadow:0 9px 26px #57371912}.sample img{width:100%;height:330px;object-fit:cover;display:block}.sample h3{font-weight:400;text-align:center;letter-spacing:.12em;margin:13px 0 5px}.sample p{text-align:center;color:var(--muted);font:12px Arial,sans-serif;margin:0 0 8px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.tier{border:1px solid #d9b98f;background:#fffaf4;padding:28px 24px;text-align:center;box-shadow:0 8px 24px #5737190d}.tier.featured{background:#f5e7d5;border-color:#b98543;transform:translateY(-7px)}.tier h3{font-size:25px;font-weight:400;letter-spacing:.16em;margin:0 0 9px}.price{font-size:42px;color:var(--brown);margin:8px}.cad{font:11px Arial,sans-serif;letter-spacing:.18em;color:var(--muted)}.tier .desc{color:var(--muted);font-style:italic;margin:8px 0 18px}.tier ul{list-style:none;padding:0;margin:0 0 22px;line-height:2;font:14px Arial,sans-serif;color:#604a38}.tier li:before{content:"✧ ";color:var(--gold)}
+.fees{margin-top:25px;border:1px solid #e3cfb8;background:#fff;padding:23px 26px}.fees h3{font-weight:400;text-align:center;font-size:22px;margin:0 0 15px}.fee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.fee{text-align:center;padding:12px;background:#fbf4ec}.fee strong{display:block;font-size:15px;font-weight:400}.fee span{font:13px Arial,sans-serif;color:var(--muted)}
+.note{font:12px Arial,sans-serif;color:var(--muted);text-align:center;margin:14px 0 0;line-height:1.6}
+.process{background:var(--cream);max-width:none}.process-inner{max-width:1100px;margin:auto;padding:0 24px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.step{text-align:center;padding:20px}.step b{display:block;color:var(--gold);font-size:24px;font-weight:400;margin-bottom:9px}.step h3{font-weight:400}.step p{font:13px Arial,sans-serif;line-height:1.7;color:var(--muted)}
+.contact{background:#4a2b17;color:#fff5e9;max-width:none;text-align:center}.contact-inner{max-width:850px;margin:auto;padding:0 24px}.contact h2{font-size:38px;font-weight:400}.contact p{line-height:1.8;color:#ead9c5}.contact .btn{background:#f7ead9;color:#4a2b17;border-color:#f7ead9}
+footer{text-align:center;padding:24px;font:11px Arial,sans-serif;letter-spacing:.12em;color:var(--muted)}
+#orderModal,#editPanel{display:none;position:fixed;inset:0;background:#21150dcc;z-index:30;overflow:auto;padding:24px}
+.modal{max-width:680px;margin:30px auto;background:#fffaf4;padding:30px;border:1px solid #d4b58c;position:relative}.close{position:absolute;right:18px;top:12px;border:0;background:none;font-size:28px;cursor:pointer;color:var(--brown)}
+form label{display:block;font:13px Arial,sans-serif;margin:13px 0 6px;color:#5f4937}input,select,textarea{width:100%;padding:12px;border:1px solid #d9c5ad;background:#fff;font:14px Arial,sans-serif;color:#382719;border-radius:3px}textarea{min-height:95px;resize:vertical}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:14px}.modal h2{font-weight:400;color:var(--brown);margin-top:4px}.small{font:12px Arial,sans-serif;color:var(--muted);line-height:1.6}
+.edit-fab{position:fixed;right:16px;bottom:16px;z-index:15;background:#4a2b17;color:#fff;border:1px solid #c69a62;border-radius:30px;padding:11px 17px;font:12px Arial,sans-serif;cursor:pointer}
+.edit-panel{max-width:560px;margin:30px auto;background:#fffaf4;padding:26px;border:1px solid #d4b58c}.edit-panel h2{font-weight:400}.edit-panel button{margin:6px 6px 6px 0}.edit-panel input{margin:5px 0 12px}
+[contenteditable="true"]{outline:1px dashed #b98543;outline-offset:3px}
+@media(max-width:760px){nav{gap:12px}nav a{font-size:12px}.gallery,.tiers{grid-template-columns:1fr}.sample img{height:auto;max-height:480px;object-fit:contain;background:#f5e7d5}.tier.featured{transform:none}.steps{grid-template-columns:1fr 1fr}.fee-grid{grid-template-columns:1fr}.hero{padding-top:58px}.formrow{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><div class="nav"><a class="brand" href="#home">CARDORA<small>CARDS FOR EVERY MOMENT ♡</small></a><nav><a href="#examples">Examples</a><a href="#pricing">Pricing</a><a href="#process">How it works</a><a href="#contact">Contact</a></nav></div></header>
+<main>
+<div class="hero" id="home"><div class="eyebrow">Thoughtfully designed for your moments</div><h1 contenteditable="false" data-edit>CARDORA</h1><div class="tagline" contenteditable="false" data-edit>CARDS FOR EVERY MOMENT ♡</div><p contenteditable="false" data-edit>Beautiful digital cards, thoughtfully customized for birthdays, celebrations, thank-yous and all the moments worth remembering.</p><button class="btn" onclick="document.querySelector('#examples').scrollIntoView({behavior:'smooth'})">Explore our designs</button></div>
+<section id="examples"><div class="section-head"><div class="eyebrow">The CARDORA collection</div><h2>Find your style</h2><p>Three design levels, each with its own look and feel.</p></div>
+<div class="gallery">
+<article class="sample"><img src="assets/basic-birthday.jpg" alt="Basic invitation example"><h3>BASIC</h3><p>Simple and beautiful</p></article>
+<article class="sample"><img src="assets/standard-birthday.jpg" alt="Standard floral invitation example"><h3>STANDARD</h3><p>Detailed and decorative</p></article>
+<article class="sample"><img src="assets/premium-sweet16.jpg" alt="Premium black and gold invitation example"><h3>PREMIUM</h3><p>Elaborate and luxurious</p></article>
+<article class="sample"><img src="assets/thank-you.jpg" alt="Thank you card example"><h3>THANK YOU</h3><p>A thoughtful finishing touch</p></article>
+<article class="sample"><img src="assets/baby-shower.jpg" alt="Baby shower card example"><h3>BABY SHOWER</h3><p>For a special new arrival</p></article>
+<article class="sample"><img src="assets/save-the-date.jpg" alt="Save the date card example"><h3>SAVE THE DATE</h3><p>Celebrate what is coming</p></article>
+</div></section>
+<section id="pricing"><div class="section-head"><div class="eyebrow">Simple, clear pricing</div><h2>Choose your design level</h2><p>Every package includes a personalized digital card and two revision rounds.</p></div>
+<div class="tiers">
+<div class="tier"><h3>BASIC</h3><div class="price" data-price="basic">$10</div><div class="cad">CAD</div><p class="desc">Clean. Simple. Timeless.</p><ul><li>Minimal decorations</li><li>Clean typography</li><li>Simple borders and layout</li><li>One or two decorative details</li><li>Two revision rounds included</li></ul><button class="btn" onclick="openOrder('Basic')">Order Basic</button></div>
+<div class="tier featured"><h3>STANDARD</h3><div class="price" data-price="standard">$15</div><div class="cad">CAD</div><p class="desc">More detail. More style.</p><ul><li>More elaborate illustrations</li><li>Floral arrangements or themed graphics</li><li>Layered design elements</li><li>More creative typography and layouts</li><li>Two revision rounds included</li></ul><button class="btn" onclick="openOrder('Standard')">Order Standard</button></div>
+<div class="tier"><h3>PREMIUM</h3><div class="price" data-price="premium">$25</div><div class="cad">CAD</div><p class="desc">Our most luxurious option.</p><ul><li>Highly detailed compositions</li><li>Intricate decorative elements</li><li>Elaborate backgrounds and framing</li><li>Sophisticated customized layouts</li><li>Two revision rounds included</li></ul><button class="btn" onclick="openOrder('Premium')">Order Premium</button></div>
+</div>
+<div class="fees"><h3>Additional fees</h3><div class="fee-grid"><div class="fee"><strong>Extra minor revision</strong><span>$3 CAD</span></div><div class="fee"><strong>Major redesign</strong><span>+$10 CAD</span></div><div class="fee"><strong>Rush order</strong><span>+$5 CAD</span></div></div><p class="note">The first two revision rounds are included. Additional matching card designs are quoted separately. Your design is supplied in up to two agreed file formats (for example, PNG and PDF).</p></div>
+</section>
+<div class="process" id="process"><div class="process-inner"><section><div class="section-head"><div class="eyebrow">From idea to finished card</div><h2>How ordering works</h2></div><div class="steps"><div class="step"><b>01</b><h3>Choose</h3><p>Select the design level that suits your occasion.</p></div><div class="step"><b>02</b><h3>Tell us</h3><p>Complete the questionnaire with your wording, details and style preferences.</p></div><div class="step"><b>03</b><h3>Review</h3><p>Receive a watermarked preview, request included revisions and approve the design.</p></div><div class="step"><b>04</b><h3>Receive</h3><p>Arrange payment and receive your final high-quality files without the preview watermark.</p></div></div></section></div></div>
+<div class="contact" id="contact"><div class="contact-inner"><section><div class="eyebrow" style="color:#dfbd91">We're happy to help</div><h2>Have a question?</h2><p>For questions about packages, custom requests or your order, email the CARDORA team. This contact link is separate from the order questionnaire.</p><a class="btn" id="emailLink" href="mailto:Cardora.co10@gmail.com?subject=CARDORA%20Question">Email CARDORA</a><p class="small">Email us at Cardora.co10@gmail.com.</p></section></div></div>
+</main><footer>© <span id="year"></span> CARDORA · CARDS FOR EVERY MOMENT ♡</footer>
+<button class="edit-fab" onclick="ownerEdit()">Owner edit</button>
+<div id="orderModal"><div class="modal"><button class="close" onclick="closeOrder()">×</button><div class="eyebrow">Your custom CARDORA design</div><h2>Order questionnaire</h2><p class="small">Tell us about your card. Submitting opens an email draft with your answers so you can send your request.</p>
+<form id="orderForm"><div class="formrow"><div><label>Your name</label><input name="name" required></div><div><label>Your email</label><input name="customerEmail" type="email" required></div></div>
+<label>Selected package</label><select name="package" id="packageSelect"><option>Basic</option><option>Standard</option><option>Premium</option></select>
+<div class="formrow"><div><label>Occasion</label><input name="occasion" placeholder="Birthday, baby shower, etc." required></div><div><label>Needed by</label><input name="deadline" type="date"></div></div>
+<label>Name(s) to appear on the card</label><input name="names">
+<label>Exact wording / message</label><textarea name="wording"></textarea>
+<div class="formrow"><div><label>Preferred colors</label><input name="colors" placeholder="Cream and gold"></div><div><label>Preferred style</label><select name="style"><option>Elegant and minimal</option><option>Floral and decorative</option><option>Luxury and elaborate</option><option>Playful / themed</option><option>Other (explain below)</option></select></div></div>
+<label>Other details or inspiration</label><textarea name="details"></textarea>
+<button class="btn" type="submit">Prepare my order email</button><p class="small">No payment is collected through this form. Your order is not submitted until you send the prepared email.</p></form></div></div>
+<div id="editPanel"><div class="edit-panel"><button class="close" onclick="closeEdit()">×</button><h2>Owner editing</h2><p class="small">Changes made here are saved in this browser on this device. This preview does not create a secure online owner account or publish changes to a live website.</p>
+<label>Basic price (CAD)</label><input id="editBasic" type="number" min="1"><label>Standard price (CAD)</label><input id="editStandard" type="number" min="1"><label>Premium price (CAD)</label><input id="editPremium" type="number" min="1">
+<label>CARDORA contact email</label><input id="editEmail" type="email" placeholder="yourbusiness@example.com">
+<button class="btn" onclick="saveEdits()">Save changes on this device</button><button class="btn light" onclick="resetEdits()">Reset preview</button><p class="small">To make these changes available to all customers, the website must be published through a hosting account you own. Add your business email before launch.</p></div></div>
+<script>
+const $=s=>document.querySelector(s);
+$('#year').textContent=new Date().getFullYear();
+function openOrder(pkg){$('#packageSelect').value=pkg;$('#orderModal').style.display='block'}
+function closeOrder(){$('#orderModal').style.display='none'}
+function ownerEdit(){
+ const saved=JSON.parse(localStorage.getItem('cardoraEdits')||'{}');
+ $('#editBasic').value=saved.basic||10;$('#editStandard').value=saved.standard||15;$('#editPremium').value=saved.premium||25;$('#editEmail').value=saved.email||'';
+ $('#editPanel').style.display='block';
+}
+function closeEdit(){$('#editPanel').style.display='none'}
+function saveEdits(){
+ const v={basic:$('#editBasic').value||10,standard:$('#editStandard').value||15,premium:$('#editPremium').value||25,email:$('#editEmail').value};
+ localStorage.setItem('cardoraEdits',JSON.stringify(v));applyEdits(v);closeEdit();
+}
+function applyEdits(v){
+ ['basic','standard','premium'].forEach(k=>{const el=document.querySelector('[data-price="'+k+'"]');if(el)el.textContent='$'+v[k]});
+ if(v.email){$('#emailLink').href='mailto:'+v.email+'?subject=CARDORA%20Question';$('#emailLink').nextElementSibling.textContent='Questions? Email us at '+v.email;}
+}
+function resetEdits(){localStorage.removeItem('cardoraEdits');applyEdits({basic:10,standard:15,premium:25,email:''});closeEdit()}
+const prior=JSON.parse(localStorage.getItem('cardoraEdits')||'{}');if(prior.basic)applyEdits(prior);
+$('#orderForm').addEventListener('submit',e=>{
+ e.preventDefault();const d=new FormData(e.target);const email=prior.email||'Cardora.co10@gmail.com';
+ const lines=[...d.entries()].map(([k,v])=>k+': '+v).join('\n');
+ const subject=encodeURIComponent('CARDORA order request - '+d.get('package'));
+ location.href='mailto:'+email+'?subject='+subject+'&body='+encodeURIComponent(lines);
+});
+</script></body></html>
